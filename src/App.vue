@@ -17,6 +17,9 @@
         :key="index"
         :audioSource="formatPreviewerSource(item.type, item.name)"
       />
+      <pre v-else-if="item.type === 'text'" :key="index" class="pre">{{
+        formatTextContent(item.content)
+      }}</pre>
     </template>
   </article>
 </template>
@@ -56,6 +59,9 @@ export default {
       const sourcePrefix = sourcePrefixHashMap.get(type) || "";
       return sourcePrefix ? (name ? `${sourcePrefix}${name}` : "") : "";
     },
+    formatTextContent(value) {
+      return value || "";
+    },
   },
   async created() {
     await this.handleFetchSlideSchemaList().catch((error) => {
@@ -70,7 +76,11 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
+
+  .pre {
+    padding: 8px 16px;
+    white-space: pre-wrap;
+  }
 }
 </style>
