@@ -1,19 +1,50 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <article id="app">
+    <template v-for="(item, index) in slideSchemaList">
+      <ImagePreviewerVue
+        :key="index"
+        :imageSource="formatImagePreviewerImageSource(item.name)"
+        :imageAlternative="item.alt"
+      />
+    </template>
+  </article>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ImagePreviewerVue from "@/components/image-previewer.vue";
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  name: "App",
+  components: { ImagePreviewerVue },
+  data() {
+    return {
+      slideSchemaList: [],
+    };
+  },
+  methods: {
+    async fetchSlideSchemaList() {
+      return await fetch("/slide-schema-list.json").then((response) =>
+        response.json()
+      );
+    },
+
+    async handleFetchSlideSchemaList() {
+      const response = await this.fetchSlideSchemaList().catch((error) => {
+        throw error;
+      });
+      this.slideSchemaList = Array.isArray(response) ? response : [];
+    },
+
+    formatImagePreviewerImageSource(name) {
+      return name ? `/images/${name}` : "";
+    },
+  },
+  async created() {
+    await this.handleFetchSlideSchemaList().catch((error) => {
+      throw error;
+    });
+  },
+};
 </script>
 
 <style lang="scss">
@@ -23,6 +54,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
