@@ -12,17 +12,23 @@
         :key="index"
         :videoSource="formatPreviewerSource(item.type, item.name)"
       />
+      <audio-previewer-vue
+        v-else-if="item.type === 'audio'"
+        :key="index"
+        :audioSource="formatPreviewerSource(item.type, item.name)"
+      />
     </template>
   </article>
 </template>
 
 <script>
 import ImagePreviewerVue from "@/components/image-previewer.vue";
-import VideoPreviewerVue from "./components/video-previewer.vue";
+import VideoPreviewerVue from "@/components/video-previewer.vue";
+import AudioPreviewerVue from "@/components/audio-previewer.vue";
 
 export default {
   name: "App",
-  components: { ImagePreviewerVue, VideoPreviewerVue },
+  components: { ImagePreviewerVue, VideoPreviewerVue, AudioPreviewerVue },
   data() {
     return {
       slideSchemaList: [],
@@ -45,7 +51,8 @@ export default {
     formatPreviewerSource(type, name) {
       const sourcePrefixHashMap = new Map()
         .set("image", "/images/")
-        .set("video", "/videos/");
+        .set("video", "/videos/")
+        .set("audio", "/audios/");
       const sourcePrefix = sourcePrefixHashMap.get(type) || "";
       return sourcePrefix ? (name ? `${sourcePrefix}${name}` : "") : "";
     },
