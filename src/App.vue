@@ -1,10 +1,16 @@
 <template>
   <article id="app">
     <template v-for="(item, index) in slideSchemaList">
-      <ImagePreviewerVue
+      <image-previewer-vue
+        v-if="item.type === 'image'"
         :key="index"
-        :imageSource="formatImagePreviewerImageSource(item.name)"
+        :imageSource="formatPreviewerSource(item.type, item.name)"
         :imageAlternative="item.alt"
+      />
+      <video-previewer-vue
+        v-else-if="item.type === 'video'"
+        :key="index"
+        :videoSource="formatPreviewerSource(item.type, item.name)"
       />
     </template>
   </article>
@@ -12,10 +18,11 @@
 
 <script>
 import ImagePreviewerVue from "@/components/image-previewer.vue";
+import VideoPreviewerVue from "./components/video-previewer.vue";
 
 export default {
   name: "App",
-  components: { ImagePreviewerVue },
+  components: { ImagePreviewerVue, VideoPreviewerVue },
   data() {
     return {
       slideSchemaList: [],
@@ -35,8 +42,12 @@ export default {
       this.slideSchemaList = Array.isArray(response) ? response : [];
     },
 
-    formatImagePreviewerImageSource(name) {
-      return name ? `/images/${name}` : "";
+    formatPreviewerSource(type, name) {
+      const sourcePrefixHashMap = new Map()
+        .set("image", "/images/")
+        .set("video", "/videos/");
+      const sourcePrefix = sourcePrefixHashMap.get(type) || "";
+      return sourcePrefix ? (name ? `${sourcePrefix}${name}` : "") : "";
     },
   },
   async created() {
