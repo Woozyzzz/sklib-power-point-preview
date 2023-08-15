@@ -1,4 +1,4 @@
-# power-point-preview
+# sklib-power-point-preview
 
 ## Project setup
 ```
