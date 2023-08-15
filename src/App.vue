@@ -39,13 +39,9 @@ export default {
   },
   methods: {
     async fetchSlideSchemaList() {
-      return await fetch(
-        `${
-          process.env.NODE_ENV === "production"
-            ? "/sklib-power-point-preview/"
-            : "/"
-        }slide-schema-list.json`
-      ).then((response) => response.json());
+      return await fetch(`${process.env.BASE_URL}slide-schema-list.json`).then(
+        (response) => response.json()
+      );
     },
 
     async handleFetchSlideSchemaList() {
