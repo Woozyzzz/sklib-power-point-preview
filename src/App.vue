@@ -53,9 +53,9 @@ export default {
 
     formatPreviewerSource(type, name) {
       const sourcePrefixHashMap = new Map()
-        .set("image", "/images/")
-        .set("video", "/videos/")
-        .set("audio", "/audios/");
+        .set("image", `${process.env.BASE_URL}images/`)
+        .set("video", `${process.env.BASE_URL}videos/`)
+        .set("audio", `${process.env.BASE_URL}audios/`);
       const sourcePrefix = sourcePrefixHashMap.get(type) || "";
       return sourcePrefix ? (name ? `${sourcePrefix}${name}` : "") : "";
     },
