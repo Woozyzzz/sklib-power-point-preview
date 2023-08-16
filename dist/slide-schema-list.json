@@ -1,13 +1,16 @@
 [
   {
     "type": "image",
-    "name": "Snipaste_2023-08-15_22-18-58.png",
+    "local": true,
+    "source": "Snipaste_2023-08-15_22-18-58.png",
     "alt": "我的理想职业"
   },
-  { "type": "audio", "name": "1-martial-mastery.mp3" },
+  { "type": "audio", "local": true, "source": "1-martial-mastery.mp3" },
   {
     "type": "video",
-    "name": "video1.mp4"
+    "local": true,
+    "source": "video1.mp4",
+    "poster": "https://uploads-ssl.webflow.com/61b314d453c56145299e8a65/6426dfecff0e69250573845c_Capture_female-p-800.png"
   },
   {
     "type": "text",
@@ -15,10 +18,13 @@
   },
   {
     "type": "video",
-    "name": "video1.mp4"
+    "local": true,
+    "source": "video1.mp4",
+    "posterLocal": true,
+    "poster": "Snipaste_2023-08-16_09-27-43.png"
   },
   {
     "type": "image",
-    "name": "Snipaste_2023-08-15_22-19-42.png"
+    "source": "https://uploads-ssl.webflow.com/61b314d453c56145299e8a65/6426dfdadf96a666ddc555ab_Performance_female-p-800.png"
   }
 ]
