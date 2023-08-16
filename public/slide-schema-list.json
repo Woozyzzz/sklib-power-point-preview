@@ -3,7 +3,7 @@
     "type": "image",
     "local": true,
     "source": "Snipaste_2023-08-15_22-18-58.png",
-    "alt": "我的理想职业"
+    "alternative": "我的理想职业"
   },
   { "type": "audio", "local": true, "source": "1-martial-mastery.mp3" },
   {
