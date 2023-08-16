@@ -1,6 +1,6 @@
 <template>
   <section class="image-previewer">
-    <img :src="imageSource" :alt="imageAlternative" class="image" />
+    <img :src="source" :alt="alternative" class="image" />
   </section>
 </template>
 
@@ -8,8 +8,8 @@
 export default {
   name: "ImagePreviewer",
   props: {
-    imageSource: { type: String },
-    imageAlternative: { type: String },
+    source: { type: String },
+    alternative: { type: String },
   },
 };
 </script>
@@ -17,8 +17,9 @@ export default {
 <style lang="scss" scoped>
 .image-previewer {
   .image {
+    margin: 0 auto;
+    display: block;
     width: 100%;
-    background-color: #eee;
   }
 }
 </style>

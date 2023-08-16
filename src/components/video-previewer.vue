@@ -1,8 +1,8 @@
 <template>
   <section class="video-previewer">
-    <video :src="videoSource" controls muted class="video">
+    <video :src="source" :poster="poster" controls muted class="video">
       抱歉，您的浏览器不支持内嵌视频
-      <a :href="videoSource">下载</a>
+      <a :href="source">下载</a>
     </video>
   </section>
 </template>
@@ -11,17 +11,24 @@
 export default {
   name: "VideoPreviewer",
   props: {
-    videoSource: { type: String },
+    source: { type: String },
+    poster: { type: String },
+  },
+  methods: {
+    formatPoster(value) {
+      return value || "";
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .video-previewer {
-  background-color: #000;
-
   .video {
+    margin: 0 auto;
+    display: block;
     width: 100%;
+    height: 60vh;
   }
 }
 </style>

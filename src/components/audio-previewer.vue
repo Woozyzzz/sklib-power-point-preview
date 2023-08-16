@@ -1,8 +1,8 @@
 <template>
   <section class="audio-previewer">
-    <audio :src="audioSource" controls class="audio">
+    <audio :src="source" controls class="audio">
       抱歉，您的浏览器不支持内嵌音频
-      <a :href="audioSource">下载</a>
+      <a :href="source">下载</a>
     </audio>
   </section>
 </template>
@@ -11,16 +11,16 @@
 export default {
   name: "AudioPreviewer",
   props: {
-    audioSource: { type: String },
+    source: { type: String },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .audio-previewer {
-  background-color: #ddd;
-
   .audio {
+    margin: 0 auto;
+    display: block;
     width: 100%;
   }
 }

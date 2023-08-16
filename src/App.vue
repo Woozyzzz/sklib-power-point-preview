@@ -1,25 +1,34 @@
 <template>
   <article id="app">
-    <template v-for="(item, index) in slideSchemaList">
+    <template
+      v-for="(
+        { type, local, source, alternative, posterLocal, poster, content },
+        index
+      ) in slideSchemaList"
+    >
       <image-previewer-vue
-        v-if="item.type === 'image'"
+        v-if="type === 'image'"
         :key="index"
-        :imageSource="formatPreviewerSource(item.type, item.name)"
-        :imageAlternative="item.alt"
+        :source="formatPreviewerSource(type, local, source)"
+        :alternative="alternative"
       />
       <video-previewer-vue
-        v-else-if="item.type === 'video'"
+        v-else-if="type === 'video'"
         :key="index"
-        :videoSource="formatPreviewerSource(item.type, item.name)"
+        :source="formatPreviewerSource(type, local, source)"
+        :poster="formatVideoPreviewerPoster(posterLocal, poster)"
       />
       <audio-previewer-vue
-        v-else-if="item.type === 'audio'"
+        v-else-if="type === 'audio'"
         :key="index"
-        :audioSource="formatPreviewerSource(item.type, item.name)"
+        :source="formatPreviewerSource(type, local, source)"
       />
-      <pre v-else-if="item.type === 'text'" :key="index" class="pre">{{
-        formatTextContent(item.content)
-      }}</pre>
+      <pre
+        v-else-if="type === 'text'"
+        v-text="formatTextContent(content)"
+        :key="index"
+        class="pre"
+      ></pre>
     </template>
   </article>
 </template>
@@ -51,13 +60,23 @@ export default {
       this.slideSchemaList = Array.isArray(response) ? response : [];
     },
 
-    formatPreviewerSource(type, name) {
+    formatPreviewerSource(type, local, source) {
+      if (!local) {
+        return source || "";
+      }
       const sourcePrefixHashMap = new Map()
         .set("image", `${process.env.BASE_URL}images/`)
         .set("video", `${process.env.BASE_URL}videos/`)
         .set("audio", `${process.env.BASE_URL}audios/`);
       const sourcePrefix = sourcePrefixHashMap.get(type) || "";
-      return sourcePrefix ? (name ? `${sourcePrefix}${name}` : "") : "";
+      return sourcePrefix ? (source ? `${sourcePrefix}${source}` : "") : "";
+    },
+    formatVideoPreviewerPoster(posterLocal, poster) {
+      if (!posterLocal) {
+        return poster || "";
+      }
+      const posterPrefix = `${process.env.BASE_URL}images/`;
+      return poster ? `${posterPrefix}${poster}` : "";
     },
     formatTextContent(value) {
       return value || "";
