@@ -2,7 +2,16 @@
   <article id="app">
     <template
       v-for="(
-        { type, local, source, alternative, posterLocal, poster, content },
+        {
+          type,
+          local,
+          source,
+          alternative,
+          posterLocal,
+          poster,
+          content,
+          href,
+        },
         index
       ) in slideSchemaList"
     >
@@ -29,6 +38,14 @@
         :key="index"
         class="pre"
       ></pre>
+      <p v-else-if="type === 'anchor'" :key="index" class="paragraph">
+        <a
+          v-text="formatTextContent(content)"
+          :href="href"
+          target="_blank"
+          class="anchor"
+        ></a>
+      </p>
     </template>
   </article>
 </template>
@@ -99,7 +116,17 @@ export default {
 
   .pre {
     padding: 8px 16px;
+    font-size: 16px;
     white-space: pre-wrap;
+  }
+
+  .paragraph {
+    padding: 8px 16px;
+
+    .anchor {
+      color: #409eff;
+      border-bottom: 1px solid #409eff;
+    }
   }
 }
 </style>
